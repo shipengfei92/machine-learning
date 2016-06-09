@@ -279,14 +279,14 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="prompt input_prompt">In&nbsp;[56]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># TODO: Calculate number of students</span>
 <span class="n">n_students</span> <span class="o">=</span> <span class="n">student_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
 <span class="c1"># TODO: Calculate number of features</span>
-<span class="n">n_features</span> <span class="o">=</span> <span class="n">student_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">n_features</span> <span class="o">=</span> <span class="n">student_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span>
 
 <span class="c1"># TODO: Calculate passing students</span>
 <span class="n">n_passed</span> <span class="o">=</span> <span class="n">student_data</span><span class="p">[</span><span class="n">student_data</span><span class="p">[</span><span class="s1">&#39;passed&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;yes&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -316,7 +316,7 @@ div#notebook {
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Total number of students: 395
-Number of features: 31
+Number of features: 30
 Number of students who passed: 265
 Number of students who failed: 130
 Graduation rate of the class: 67.09%
@@ -495,11 +495,12 @@ Feature values:
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="prompt input_prompt">In&nbsp;[57]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># TODO: Import any additional functionality you may need here</span>
 <span class="kn">from</span> <span class="nn">sklearn.utils</span> <span class="kn">import</span> <span class="n">shuffle</span>
+<span class="kn">from</span> <span class="nn">sklearn.cross_validation</span> <span class="kn">import</span> <span class="n">train_test_split</span>
 
 <span class="c1"># TODO: Set the number of training points</span>
 <span class="n">num_train</span> <span class="o">=</span> <span class="mi">300</span>
@@ -587,7 +588,7 @@ Testing set has 95 samples.
 <li>Need a “good” kernel function to map the data, in order to separate the data.</li>
 </ul>
 <h4 id="Why-choose-this-model?">Why choose this model?<a class="anchor-link" href="#Why-choose-this-model?">&#182;</a></h4><ul>
-<li>According to the data is a classification problem and has many features, so I think SVM is a good choice.</li>
+<li>With the kernel trick "rbf", SVM can efficiently separate the features and do well in high dimentional space, so I use the SVM for a try.</li>
 </ul>
 <h3 id="Decision-Tree">Decision Tree<a class="anchor-link" href="#Decision-Tree">&#182;</a></h3><h4 id="General-applications">General applications<a class="anchor-link" href="#General-applications">&#182;</a></h4><p>Decision trees are excellent tools for making financial or number based decisions where a lot of complex information needs to be taken into account.</p>
 <p>It is one of the predictive modelling approaches used in statistics, data mining and machine learning.</p>
@@ -607,7 +608,7 @@ Testing set has 95 samples.
 <li><p>Decision trees are less appropriate for estimation tasks where the goal is to predict the value of a continuous attribute. 
 #### Why choose this model?</p>
 </li>
-<li><p>Because students' data has many features, so decision trees can decide methods by the different features and give a prediction.</p>
+<li><p>Due to the simplicity of understanding and the suitable for classification problems with many features, so I chose the decision tree for a try.</p>
 </li>
 </ul>
 <h3 id="Gaussian-Naive-Bayes">Gaussian Naive Bayes<a class="anchor-link" href="#Gaussian-Naive-Bayes">&#182;</a></h3><h4 id="General-applications">General applications<a class="anchor-link" href="#General-applications">&#182;</a></h4><p>Gaussian Naive Bayes is one of the fastest learning algorithms.</p>
@@ -621,7 +622,7 @@ Testing set has 95 samples.
 <li>It's difficult to the data with zero-frequency.</li>
 </ul>
 <h4 id="Why-choose-this-model?">Why choose this model?<a class="anchor-link" href="#Why-choose-this-model?">&#182;</a></h4><ul>
-<li>Because the data has many features, and naive bayes can quickly classify the data.</li>
+<li>Naive bayes thinks different features are independent, so it can quickly classify the data and save time. By the results we can also see whether the different features are really independent.</li>
 </ul>
 <h2 id="Reference">Reference<a class="anchor-link" href="#Reference">&#182;</a></h2><p>Udacity Videos &amp; Supporting Materials</p>
 <p><a href="http://stats.stackexchange.com/questions/30042/neural-networks-vs-support-vector-machines-are-the-second-definitely-superior">http://stats.stackexchange.com/questions/30042/neural-networks-vs-support-vector-machines-are-the-second-definitely-superior</a></p>
@@ -1006,7 +1007,16 @@ F1 score for test set: 0.7121.
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Answer: </strong> <em>The best model I choose is <strong>Support Vector Machine</strong>. Though the predict time is longer than other two models, but due to the limited resources and the cost time is very very short, it doesn't matter. The F1 Score of SVM is the highest on test set, the performance is the best, so SVM is the best model.</em></p>
+<p><strong>Answer: </strong> <em>The best model I choose is <strong>Support Vector Machine</strong>. </em></p>
+<ol>
+<li><p>Decision tree has the best F1 score in training data, but it has been overfitting ,because of lower F1 score in testing data.</p>
+</li>
+<li><p>Gaussian naive bayes don't do well in both training data and testing data, may be the naive independent assumption is not very suitable for some features of the data.</p>
+</li>
+<li><p>SVM do the best in the testing data, and though the predicting time both on training data and testing data is longer than the other two algorithms, but due to the students' data is not too large, so the cost time is also very small, it don't matter.</p>
+</li>
+</ol>
+<p>So considering the above three models, the best model I choose is SVM.</p>
 
 </div>
 </div>
@@ -1027,14 +1037,17 @@ F1 score for test set: 0.7121.
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer: </strong> <em>My choice is <strong>Support Vector Machine</strong>. </em></p>
-<ol>
-<li><p>First SVM use the <strong>kernel methods</strong> (such as a circle or the distance to one certain point) to map the data into special positions. In order to seperate different labelled data linearly.</p>
-</li>
-<li><p>Then the SVM make a judge line, which has the max distance to the margin of different labelled data and smalllest number of misclassification points.</p>
-</li>
-<li><p>When SVM makes a prediction, first it maps the point which need to predict by kernel. Then according to the judge line, it decides the point which label should be.</p>
-</li>
-</ol>
+<ul>
+<li>When we do a classification problem, SVM will maximum the width margin of two classes, as the picture show as the below. It can simply use the middle linear to separate the data.</li>
+</ul>
+<p><img src="https://udacity-github-sync-content.s3.amazonaws.com/_imgs/372/1465405584/SVM_2.png" alt="svm-1"></p>
+<ul>
+<li>If the data cannot be separated by a line, so we can use the <strong> kernel trick </strong> of the SVM, such as 'rbf' kernel. I will use the below two figure to illustrate. As the right figure, the points cannot be separated by a hyperplane, but we add an feature (the distance to center of the blue point as the Z axis value), then we can draw the R^3 figure as the left one, which can be separated by a hyperplane. In R^2, which can be projected as a circle.</li>
+</ul>
+<p><img src="https://udacity-github-sync-content.s3.amazonaws.com/_imgs/372/1465405580/data_2d_to_3d_hyperplane.png" alt="svm-2"></p>
+<ul>
+<li>After data has been separated, SVM will predict the data due to which side the point below. Such as the above left figure, if the new point above the hyperplane, it will be predict as red point; If the new point below the hyperplane, it will be predict as the blue point.</li>
+</ul>
 
 </div>
 </div>
