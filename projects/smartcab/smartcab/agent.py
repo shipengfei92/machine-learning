@@ -14,7 +14,7 @@ class QLearningAgent(Agent):
         self.planner = RoutePlanner(self.env, self)  # simple route planner to get next_waypoint
         # TODO: Initialize any additional variables here
         self.Q = {}
-        self.learning_rate = 0.8
+        self.learning_rate = 0.9
         self.states = None
         self.possible_actions = [None, 'forward', 'left', 'right']
         
@@ -35,6 +35,7 @@ class QLearningAgent(Agent):
         # state = (self.next_waypoint,inputs['light'], inputs['oncoming'], inputs['right'], inputs['left'],deadline)
         state = (self.next_waypoint,inputs['light'], inputs['oncoming'], inputs['right'], inputs['left'])
         # state = (self.next_waypoint,inputs['light'])
+        self.state = state
 
         for action in self.possible_actions:
             if(state, action) not in self.Q: 
@@ -52,7 +53,8 @@ class QLearningAgent(Agent):
         reward = self.env.act(self, action)
 
         # TODO: Learn policy based on state, action, reward
-        self.Q[(state,action)] = reward + self.learning_rate * self.Q[(state,action)]
+        # self.Q[(state,action)] = reward + self.learning_rate * self.Q[(state,action)]
+        self.Q[(state,action)] = reward * self.learning_rate + ( 1 - self.learning_rate ) * self.Q[(state,action)]
         # print self.Q[(state, action)]
 
 
