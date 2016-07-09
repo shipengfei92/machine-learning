@@ -1,7 +1,7 @@
 # Capstone Project
 ## Machine Learning Engineer Nanodegree
-Joe Udacity  
-December 31st, 2050
+Pengfei Shi  
+June 21st, 2016
 
 ## I. Definition
 _(approx. 1-2 pages)_

@@ -197,7 +197,7 @@ class Environment(object):
                 reward = 0.0
         else:
             # Invalid move
-            reward = -1.0
+            reward = -10.0
 
         if agent is self.primary_agent:
             if state['location'] == state['destination']:

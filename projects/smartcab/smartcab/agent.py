@@ -51,6 +51,11 @@ class QLearningAgent(Agent):
 
         # Execute action and get reward
         reward = self.env.act(self, action)
+        if reward == -10.0 :
+            print "Invalid move"
+        if reward == -0.5 :
+            print "valid, but is it correct?"
+        
 
         # TODO: Learn policy based on state, action, reward
         # self.Q[(state,action)] = reward + self.learning_rate * self.Q[(state,action)]
